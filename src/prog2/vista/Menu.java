@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author Xavi Baró
  */
 public class Menu<TEnum> {
-     /**
+    /**
      * Llista de les opcions
      */
     TEnum[] _llistaOpcions=null;
@@ -47,7 +47,7 @@ public class Menu<TEnum> {
             _descripcions=descripcions;
         }
     }
-    
+
     /**
      * Mostra el menú d'opcions
      */
@@ -61,11 +61,11 @@ public class Menu<TEnum> {
         System.out.println(_titol.toUpperCase());
         System.out.println(lines);
         for(TEnum c : _llistaOpcions){
-            
+
             // Mostrem la posició
             int pos=((Enum)c).ordinal();
             System.out.print("\t" + (pos+1) + ".- ");
-            
+
             // Mostrem la descripció
             if(_descripcions!=null) {
                 System.out.println(_descripcions[pos]);
@@ -118,7 +118,7 @@ public class Menu<TEnum> {
             if(_descripcions!=null) {
                 maxLen=Math.max(maxLen, _descripcions[pos].length());
             } else {
-                maxLen=Math.max(maxLen, c.toString().length());                
+                maxLen=Math.max(maxLen, c.toString().length());
             }
         }
 
