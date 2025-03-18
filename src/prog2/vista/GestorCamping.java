@@ -176,7 +176,7 @@ public class GestorCamping {
         String dni="12345678X";
         try {
             camping.afegirClient(nomClient, dni);
-        } catch (prog2.vista.ExcepcioReserva ex) {
+        } catch (prog2.vista.ExcepcioCamping ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -184,7 +184,7 @@ public class GestorCamping {
         dni="78659101A";
         try {
             camping.afegirClient(nomClient, dni);
-        } catch (prog2.vista.ExcepcioReserva ex) {
+        } catch (prog2.vista.ExcepcioCamping ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -203,7 +203,7 @@ public class GestorCamping {
         try {
             camping.afegirReserva(idAllotjament, dni, dataEntrada, dataSortida);
             System.out.println("Reserva afegida correctament per al client amb DNI " + dni);
-        } catch (prog2.vista.ExcepcioReserva ex) {
+        } catch (prog2.vista.ExcepcioCamping ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -215,7 +215,7 @@ public class GestorCamping {
         try {
             camping.afegirReserva(idAllotjament, dni, dataEntrada, dataSortida);
             System.out.println("Reserva afegida correctament per al client amb DNI " + dni);
-        } catch (prog2.vista.ExcepcioReserva ex) {
+        } catch (prog2.vista.ExcepcioCamping ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -228,7 +228,7 @@ public class GestorCamping {
         try {
             camping.afegirReserva(idAllotjament, dni, dataEntrada, dataSortida);
             System.out.println("Reserva afegida correctament per al client amb DNI " + dni);
-        } catch (prog2.vista.ExcepcioReserva ex) {
+        } catch (prog2.vista.ExcepcioCamping ex) {
             System.out.println(ex.getMessage());
         }
 

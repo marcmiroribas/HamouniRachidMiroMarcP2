@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import prog2.vista.ExcepcioReserva;
+
 import prog2.model.InAllotjament;
 import model.InLlistaReserves;
 
@@ -15,15 +15,15 @@ public class LlistaReserves implements InLlistaReserves {
     }
 
     @Override
-    public void afegirReserva(Allotjament allotjament, Client client, LocalDate dataEntrada, LocalDate dataSortida) throws ExcepcioReserva {
+    public void afegirReserva(Allotjament allotjament, Client client, LocalDate dataEntrada, LocalDate dataSortida) throws prog2.vista.ExcepcioCamping {
         if (!allotjamentDisponible(allotjament, dataEntrada, dataSortida)) {
-            throw new ExcepcioReserva("L’allotjament amb identificador " + allotjament.getId() +
+            throw new prog2.vista.ExcepcioCamping("L’allotjament amb identificador " + allotjament.getId() +
                     " no està disponible en la data demanada " + dataEntrada + " pel client " + client.getNom() +
                     " amb DNI: " + client.getDni() + ".");
         }
 
         if (!isEstadaMinima(allotjament, dataEntrada, dataSortida)) {
-            throw new ExcepcioReserva("Les dates sol·licitades pel client " + client.getNom() + " amb DNI: " +
+            throw new prog2.vista.ExcepcioCamping("Les dates sol·licitades pel client " + client.getNom() + " amb DNI: " +
                     client.getDni() + " no compleixen l'estada mínima per l'allotjament amb identificador " +
                     allotjament.getId() + ".");
         }

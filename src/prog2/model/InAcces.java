@@ -1,6 +1,8 @@
 
 package prog2.model;
 
+import model.Allotjament;
+
 /**
  * Interfície que defineix les operacions bàsiques d'un accés.
  */
