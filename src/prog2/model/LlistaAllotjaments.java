@@ -1,70 +1,82 @@
 package prog2.model;
 
-import model.Allotjament;
-
+import prog2.vista.ExcepcioCamping;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LlistaAllotjament implements InLlistaAllotjaments {
-    private ArrayList<model.Allotjament> allotjaments;
-
+    private ArrayList<Allotjament> allotjaments;
 
     public LlistaAllotjament() {
         this.allotjaments = new ArrayList<>();
     }
-    /**
-     * Afegeix un allotjament rebut per paràmetre a la llista d'allotjaments.
-     * @param allotjament Objecte de tipus Allotjament
-     * @throws prog2.vista.ExcepcioCamping Aquest mètode podria llançar una excepció si fos necessari.
-     */
 
     @Override
-    public void afegirAllotjament(model.Allotjament allotjament) throws ExcepcioCamping {
+    public void afegirAllotjament(Allotjament allotjament) throws ExcepcioCamping {
+        if (allotjament == null) {
+            throw new ExcepcioCamping("L'allotjament no pot ser null");
+        }
         allotjaments.add(allotjament);
     }
 
-    /**
-     * Buida la llista d'allotjaments.
-     */
     @Override
     public void buidar() {
         allotjaments.clear();
     }
-    /**
-     * Itera sobre la llista d'allotjaments i retorna un String amb la informació de tots els allotjaments amb l'estat rebut per paràmetre.
-     * En cas que no hi hagi allotjaments en l'estat passat com a paràmetre llança una excepció.
-     * @param estat
-     * @return String
-     * @throws prog2.vista.ExcepcioCamping Aquest mètode llança una excepció en cas que no hi hagi allotjaments en l'estat passat com a paràmetre.
-     */
+
     @Override
     public String llistarAllotjaments(String estat) throws ExcepcioCamping {
         StringBuilder resultat = new StringBuilder();
-        Iterator<model.Allotjament> iterator = allotjaments.iterator();
+        Iterator<Allotjament> it = allotjaments.iterator();
         boolean trobat = false;
 
-        while (iterator.hasNext()) {
-            model.Allotjament a = iterator.next();
-            if (a.getEstat().equalsIgnoreCase(estat)) {
+        while (it.hasNext()) {
+            Allotjament a = it.next();
+            String estatAllotjament = a.isOperatiu() ? "Operatiu" : "No operatiu";
+            if (estatAllotjament.equalsIgnoreCase(estat)) {
                 resultat.append(a.toString()).append("\n");
                 trobat = true;
             }
         }
+
         if (!trobat) {
             throw new ExcepcioCamping("No hi ha allotjaments amb l'estat: " + estat);
         }
 
         return resultat.toString();
-
     }
 
     @Override
     public boolean containsAllotjamentOperatiu() {
+        Iterator<Allotjament> it = allotjaments.iterator();
+        while (it.hasNext()) {
+            if (it.next().isOperatiu()) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean contains(Allotjament allotjament) {
+        Iterator<Allotjament> it = allotjaments.iterator();
+        while (it.hasNext()) {
+            if (it.next().equals(allotjament)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public Allotjament getAllotjament(String nom) throws ExcepcioCamping {
+        Iterator<Allotjament> it = allotjaments.iterator();
+        while (it.hasNext()) {
+            Allotjament a = it.next();
+            if (a.getNom().equalsIgnoreCase(nom)) {
+                return a;
+            }
+        }
+        throw new ExcepcioCamping("No s'ha trobat cap allotjament amb el nom: " + nom);
     }
 }

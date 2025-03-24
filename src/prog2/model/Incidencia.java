@@ -10,11 +10,11 @@ public class Incidencia {
 
 
     // Constrctor de la classe amb parametres
-    public Incidencia(int num, model.Allotjament allotjament, String data, TipusIncidencia tipusIncidencia) {
+    public Incidencia(int num, TipusIncidencia tipus, Allotjament allotjament, String data) {
         this.num = num;
         this.allotjament = allotjament;
         this.data = data;
-        this.tipusIncidencia = tipusIncidencia;
+        this.tipusIncidencia = tipus;
     }
 
     // Getters

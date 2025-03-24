@@ -1,6 +1,4 @@
-package model;
-
-import prog2.model.InAllotjament;
+package prog2.model;
 
 public abstract class Allotjament implements InAllotjament {
     private String nom;
@@ -41,7 +39,7 @@ public abstract class Allotjament implements InAllotjament {
 
     @Override
     public long getEstadaMinima(Temp temp) {
-        return (temp == Temp.ALTA) ? estadaMinimaAlta : estadaMinimaBaixa;
+        return temp == Temp.ALTA ? estadaMinimaAlta : estadaMinimaBaixa;
     }
 
     @Override
@@ -61,7 +59,17 @@ public abstract class Allotjament implements InAllotjament {
     @Override
     public void tancarAllotjament(Incidencia in) {
         this.operatiu = false;
-        this.illuminacio = in.afectaIluminacio() ? 0 : illuminacio;
+        switch(in.getTipusIncidencia()) {
+            case Reparacio:
+                this.illuminacio = 100;
+                break;
+            case Neteja:
+                this.illuminacio = 50;
+                break;
+            case Tancament:
+                this.illuminacio = 0;
+                break;
+        }
     }
 
     @Override
@@ -72,8 +80,11 @@ public abstract class Allotjament implements InAllotjament {
 
     @Override
     public String toString() {
-        return "Nom=" + nom + ", Id=" + id + ", Estada mínima en temp ALTA: " + estadaMinimaAlta +
-                ", Estada mínima en temp BAIXA: " + estadaMinimaBaixa +
-                ", Operatiu: " + operatiu + ", Il·luminació: " + illuminacio + "%";
+        return "Nom='" + nom + '\'' +
+                ", Id='" + id + '\'' +
+                ", Estada Mínima ALTA=" + estadaMinimaAlta +
+                ", Estada Mínima BAIXA=" + estadaMinimaBaixa +
+                ", Operatiu=" + (operatiu ? "Sí" : "No") +
+                ", Il·luminació=" + illuminacio + "%";
     }
 }
