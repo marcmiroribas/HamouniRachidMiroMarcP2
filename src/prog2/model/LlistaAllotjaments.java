@@ -4,10 +4,10 @@ import prog2.vista.ExcepcioCamping;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class LlistaAllotjament implements InLlistaAllotjaments {
+public class LlistaAllotjaments implements InLlistaAllotjaments {
     private ArrayList<Allotjament> allotjaments;
 
-    public LlistaAllotjament() {
+    public LlistaAllotjaments() {
         this.allotjaments = new ArrayList<>();
     }
 

@@ -1,10 +1,10 @@
 package prog2.model;
 
-import model.Allotjament;
+import prog2.model.Allotjament;
 
 public class Incidencia {
     private int num;
-    private model.Allotjament allotjament;
+    private Allotjament allotjament;
     private String data;
     private TipusIncidencia tipusIncidencia;
 

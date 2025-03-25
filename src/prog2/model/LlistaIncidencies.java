@@ -1,14 +1,18 @@
 package prog2.model;
 
+import prog2.vista.ExcepcioCamping;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ArrayList;
+import prog2.model.Incidencia.TipusIncidencia;
 
-public class LlistaIncidencies implements InLlistaIncidencies{
+public class LlistaIncidencies implements InLlistaIncidencies {
     private ArrayList<Incidencia> incidencies;
 
     public LlistaIncidencies() {
         this.incidencies = new ArrayList<>();
     }
+
     /**
      * Aquest mètode crea una incidència amb la informació passada com a paràmetres
      * (número d'identificador, tipus, l'allotjament on s'ha produït i la data) i l'afegeix a la llista.
@@ -21,35 +25,25 @@ public class LlistaIncidencies implements InLlistaIncidencies{
      * @throws ExcepcioCamping Per comprovar i avisar si l'allotjament ja té una incidència o si el tipus d’incidència que es vol afegir no existeix.
      */
     @Override
-    @Override
     public void afegirIncidencia(int num, String tipus, Allotjament allotjament, String data) throws ExcepcioCamping {
-        // Comprovar si l’allotjament ja té una incidència (usant Iterator)
-        Iterator<Incidencia> it = incidencies.iterator();
-        while (it.hasNext()) {
-            Incidencia incidencia = it.next();
-            if (incidencia.getAllotjament().equals(allotjament)) {
-                throw new ExcepcioCamping("Aquest allotjament ja té una incidència registrada.");
+        for (Incidencia i : incidencies) {
+            if (i.getAllotjament().equals(allotjament)) {
+                throw new ExcepcioCamping("L'allotjament ja té una incidència registrada.");
             }
         }
 
-        // Validar el tipus d’incidència (enum)
-        TipusIncidencia tipusIncidencia;
+        TipusIncidencia tipusInc;
         try {
-            tipusIncidencia = TipusIncidencia.valueOf(tipus.toUpperCase());
+            tipusInc = TipusIncidencia.valueOf(tipus.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new ExcepcioCamping("El tipus d’incidència '" + tipus + "' no és vàlid.");
+            throw new ExcepcioCamping("El tipus d'incidència no és vàlid.");
         }
 
-        // Crear la incidència i afegir-la
-        Incidencia novaIncidencia = new Incidencia(num, tipusIncidencia, allotjament, data);
+        Incidencia novaIncidencia = new Incidencia(num, tipusInc, allotjament, data);
         incidencies.add(novaIncidencia);
-
-        // Tancar l’allotjament usant el teu mètode específic
-        allotjament.tancarAllotjament(novaIncidencia);
+        allotjament.tancarAllotjament();
     }
 
-
-}
     /**
      * Aquest mètode elimina una incidència de la llista i actualitza l'estat de l'allotjament mitjançant el mètode obrirAllotjament de la classe Allotjament.
      * @param in Objecte de tipus Incidència
@@ -57,16 +51,12 @@ public class LlistaIncidencies implements InLlistaIncidencies{
      */
     @Override
     public void eliminarIncidencia(Incidencia in) throws ExcepcioCamping {
-        boolean trobat = false;
-        Iterator<Incidencia> iterator = incidencies.iterator();
-
-        while (iterator.hasNext()) {
-            Incidencia i = iterator.next();
-            if (i.equals(in)) {
-                iterator.remove();
-
-
+        if (!incidencies.remove(in)) {
+            throw new ExcepcioCamping("No s'ha trobat la incidència per eliminar.");
+        }
+        in.getAllotjament().obrirAllotjament();
     }
+
     /**
      * Itera sobre la llista d'incidències i retorna un String amb la informació de totes les incidències.
      * En cas que no hi hagi cap incidència llança una excepció.
@@ -75,35 +65,24 @@ public class LlistaIncidencies implements InLlistaIncidencies{
      */
     @Override
     public String llistarIncidencies() throws ExcepcioCamping {
-        if (incidencies == null || incidencies.isEmpty()) {
-            throw new ExcepcioCamping("No hi ha cap incidència.");
+        if (incidencies.isEmpty()) {
+            throw new ExcepcioCamping("No hi ha incidències registrades.");
         }
 
         StringBuilder resultat = new StringBuilder();
-        Iterator<Incidencia> it = incidencies.iterator();
-
-        while (it.hasNext()) {
-            Incidencia incidencia = it.next();
-            resultat.append(incidencia.toString()).append("\n");
+        for (Incidencia i : incidencies) {
+            resultat.append(i.toString()).append("\n");
         }
-
         return resultat.toString();
     }
+
     @Override
     public Incidencia getIncidencia(int num) throws ExcepcioCamping {
-        if (incidencies == null || incidencies.isEmpty()) {
-            throw new ExcepcioCamping("No hi ha cap incidència registrada.");
-        }
-
-        Iterator<Incidencia> it = incidencies.iterator();
-        while (it.hasNext()) {
-            Incidencia incidencia = it.next();
-            if (incidencia.getNumero() == num) {
-                return incidencia;
+        for (Incidencia i : incidencies) {
+            if (i.getNum() == num) {
+                return i;
             }
         }
-
-        throw new ExcepcioCamping("No existeix cap incidència amb el número: " + num);
+        throw new ExcepcioCamping("No existeix cap incidència amb el número indicat.");
     }
-
 }
