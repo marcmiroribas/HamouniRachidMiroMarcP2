@@ -13,7 +13,7 @@ public interface InLlistaAllotjaments {
      * @param allotjament Objecte de tipus Allotjament
      * @throws prog2.vista.ExcepcioCamping Aquest mètode podria llançar una excepció si fos necessari.
      */
-    public void afegirAllotjament(model.Allotjament allotjament) throws ExcepcioCamping;
+    public void afegirAllotjament(Allotjament allotjament) throws ExcepcioCamping;
     
     /**
      * Buida la llista d'allotjaments.
@@ -41,15 +41,15 @@ public interface InLlistaAllotjaments {
      * @return boolean
      */
     
-    public boolean contains(model.Allotjament allotjament);
+    public boolean contains(Allotjament allotjament);
     
     /**
      * Busca l'allotjament amb el nom rebut per paràmetre i el retorna. En cas que no existeixi llança una excepció.
-     * @param id String amb el id de l'allotjament
+     * @param nom String amb el nom de l'allotjament
      * @return  Objecte de tipus Allotjament
      * @throws prog2.vista.ExcepcioCamping Aquest mètode podria llançar una excepció si fos necessari.
      */
-    public model.Allotjament getAllotjament(String id) throws ExcepcioCamping;
+    public Allotjament getAllotjament(String nom) throws ExcepcioCamping;
     
  
 }
