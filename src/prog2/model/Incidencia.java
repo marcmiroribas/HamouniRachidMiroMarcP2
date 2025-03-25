@@ -1,14 +1,18 @@
 package prog2.model;
 
-import model.Allotjament;
 
 public class Incidencia {
     private int num;
-    private model.Allotjament allotjament;
+    private Allotjament allotjament;
     private String data;
     private TipusIncidencia tipusIncidencia;
 
 
+    public static enum TipusIncidencia {
+        Reparacio,
+        Neteja,
+        Tancament
+    }
     // Constrctor de la classe amb parametres
     public Incidencia(int num, TipusIncidencia tipus, Allotjament allotjament, String data) {
         this.num = num;
@@ -51,14 +55,7 @@ public class Incidencia {
     public void setTipusIncidencia(TipusIncidencia tipusIncidencia) {
         this.tipusIncidencia = tipusIncidencia;
     }
-
-
-    // Enum per l'atribut tipusIncidencia
-    public static enum TipusIncidencia {
-        Reparacio,
-        Neteja,
-        Tancament
-    };
+    
 
     // Metode toString implementat a incidencia
     public String toString() {
