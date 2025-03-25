@@ -55,7 +55,7 @@ public class Incidencia {
     public void setTipusIncidencia(TipusIncidencia tipusIncidencia) {
         this.tipusIncidencia = tipusIncidencia;
     }
-    
+
 
     // Metode toString implementat a incidencia
     public String toString() {
