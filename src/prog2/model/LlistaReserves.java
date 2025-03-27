@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import prog2.model.InAllotjament;
-import model.InLlistaReserves;
+import prog2.model.InLlistaReserves;
 
 public class LlistaReserves implements InLlistaReserves {
     private List<Reserva> reserves;
