@@ -16,14 +16,14 @@ public class CampingTest {
 
     @Test
     void testAfegirIncidencia() throws ExcepcioCamping {
-        camping.afegirIncidencia(1, "Electrica", "A1", "2025-03-25");
+        camping.afegirIncidencia(1, "Electrica", "ALL3", "2025-03-25");
         String result = camping.llistarIncidencies();
         assertTrue(result.contains("Electrica"), "L'incidència hauria d'estar registrada.");
     }
 
     @Test
     void testEliminarIncidencia() throws ExcepcioCamping {
-        camping.afegirIncidencia(2, "Aigua", "B2", "2025-03-25");
+        camping.afegirIncidencia(2, "Aigua", "ALL3", "2025-03-25");
         camping.eliminarIncidencia(2);
         String result = camping.llistarIncidencies();
         assertFalse(result.contains("Aigua"), "L'incidència hauria d'haver estat eliminada.");
@@ -32,7 +32,7 @@ public class CampingTest {
     @Test
     void testGuardarICarregar() throws ExcepcioCamping {
         String path = "testCamping.dat";
-        camping.afegirIncidencia(3, "Seguretat", "C3", "2025-03-25");
+        camping.afegirIncidencia(3, "Seguretat", "ALL3", "2025-03-25");
         camping.save(path);
 
         Camping loadedCamping = Camping.load(path);

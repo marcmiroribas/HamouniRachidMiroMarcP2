@@ -3,7 +3,6 @@ package prog2.model;
 import java.util.ArrayList;
 import java.util.List;
 import prog2.vista.ExcepcioCamping;
-import prog2.model.Acces;
 
 public class LlistaAccessos {
     private List<Acces> accessos;
