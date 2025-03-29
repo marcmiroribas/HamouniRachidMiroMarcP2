@@ -1,6 +1,6 @@
 package prog2.model;
 
-public abstract class Allotjament implements InAllotjament {
+public class Allotjament implements InAllotjament {
     private String nom;
     private String id;
     private long estadaMinimaAlta;

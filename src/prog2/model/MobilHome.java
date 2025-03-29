@@ -9,9 +9,9 @@ public class MobilHome extends Allotjament {
         this.terrassaBarbacoa = terrassaBarbacoa;
     }
 
-
+    @Override
     public boolean correcteFuncionament() {
-        return isOperatiu();
+        return true;
     }
 
     @Override

@@ -9,9 +9,8 @@ public class Bungalow extends Allotjament {
     private boolean tv;
     private boolean aireFred;
 
-    public Bungalow(String nom, String idAllotjament, String mida, int habitacions,
-                    int placesPersones, int placesParquing, boolean terrassa,
-                    boolean tv, boolean aireFred) {
+    public Bungalow(String nom, String idAllotjament, String mida, int habitacions, int placesPersones,
+                    int placesParquing, boolean terrassa, boolean tv, boolean aireFred) {
         super(nom, idAllotjament, 7, 4); // Estada mínima alta: 7, estada mínima baja: 4
         this.mida = mida;
         this.habitacions = habitacions;
@@ -22,48 +21,21 @@ public class Bungalow extends Allotjament {
         this.aireFred = aireFred;
     }
 
+    @Override
     public boolean correcteFuncionament() {
-        return isOperatiu();
-    }
-
-    // Getters específicos de Bungalow
-    public String getMida() {
-        return mida;
-    }
-
-    public int getHabitacions() {
-        return habitacions;
-    }
-
-    public int getPlacesPersones() {
-        return placesPersones;
-    }
-
-    public int getPlacesParquing() {
-        return placesParquing;
-    }
-
-    public boolean teTerrassa() {
-        return terrassa;
-    }
-
-    public boolean teTv() {
-        return tv;
-    }
-
-    public boolean teAireFred() {
-        return aireFred;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Bungalow [" + super.toString() +
-                ", mida=" + mida +
+        return super.toString() + " Bungalow{" +
+                "mida='" + mida + '\'' +
                 ", habitacions=" + habitacions +
                 ", placesPersones=" + placesPersones +
                 ", placesParquing=" + placesParquing +
-                ", terrassa=" + (terrassa ? "Sí" : "No") +
-                ", tv=" + (tv ? "Sí" : "No") +
-                ", aireFred=" + (aireFred ? "Sí" : "No") + "]";
+                ", terrassa=" + terrassa +
+                ", tv=" + tv +
+                ", aireFred=" + aireFred +
+                '}';
     }
 }

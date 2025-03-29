@@ -6,14 +6,14 @@ public class Glamping extends Allotjament {
 
     public Glamping(String nom, String idAllotjament, String mida, int habitacions, int placesPersones,
                     String material, boolean casaMascota) {
-        super(nom, idAllotjament,operatiu, iluminacio,5, 3); // Estada mínima alta: 5, estada mínima baja: 3
+        super(nom, idAllotjament, 5, 3); // Estada mínima alta: 5, estada mínima baja: 3
         this.material = material;
         this.casaMascota = casaMascota;
     }
 
-
+    @Override
     public boolean correcteFuncionament() {
-        return isOperatiu();
+        return true;
     }
 
     @Override
