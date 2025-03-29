@@ -3,16 +3,21 @@ package prog2.model;
 import prog2.vista.ExcepcioCamping;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Camping implements InCamping {
-    private ArrayList<Allotjament> allotjaments;
+public class
+Camping implements InCamping {
+    private LlistaAllotjaments allotjaments;
     private LlistaIncidencies llistaIncidencies;
     private LlistaAccessos llistaAccessos;
 
     public Camping() {
-        this.allotjaments = new ArrayList<>();
+        this.allotjaments =new LlistaAllotjaments();
         this.llistaIncidencies = new LlistaIncidencies();
         this.llistaAccessos = new LlistaAccessos();
+    }
+    public LlistaAllotjaments getLlistaAllotjaments() {
+        return this.allotjaments;
     }
 
     public String getNomCamping() {
@@ -28,16 +33,23 @@ public class Camping implements InCamping {
     }
 
     public String llistarIncidencies() throws ExcepcioCamping {
-        return llistaIncidencies.toString();
+        return llistaIncidencies.llistarIncidencies();
     }
 
-    public void afegirIncidencia(int numIncidencia, String tipus, String idAllotjament, String data) throws ExcepcioCamping {
-        Allotjament allotjament = getAllotjamentById(idAllotjament);
-        if (allotjament == null) {
-            throw new ExcepcioCamping("L'allotjament amb ID " + idAllotjament + " no existeix.");
+    public void afegirIncidencia(int numIncidencia, String tipus, String idAllotjament, String data)
+            throws ExcepcioCamping {
+
+        Iterator<Allotjament> it = allotjaments.iterator();
+        while (it.hasNext()) {
+            Allotjament a = it.next();
+            if (a.getId().equals(idAllotjament)) {
+                llistaIncidencies.afegirIncidencia(numIncidencia, tipus, a, data);
+                llistaAccessos.actualitzaEstatAccessos();
+                return;
+            }
         }
-        llistaIncidencies.afegirIncidencia(numIncidencia, tipus, allotjament, data);
-        llistaAccessos.actualitzaEstatAccessos();
+
+        throw new ExcepcioCamping("L'allotjament amb ID " + idAllotjament + " no existeix.");
     }
 
     public void eliminarIncidencia(int numIncidencia) throws ExcepcioCamping {
@@ -84,13 +96,13 @@ public class Camping implements InCamping {
 
             llistaAccessos.buidar();
 
-            float asfalt = 200;
-            Acces Acc1 = new CamiAsfaltat("A1", true, asfalt);
+        try {
+            Acces Acc1 = new CamiAsfalt("A1", true,200.0);
             llistaAccessos.afegirAcces(Acc1);
 
-            asfalt = 800;
+            float asfalt = 800;
             float pesMaxim = 10000;
-            Acces Acc2 = new CarreteraAsfaltada("A2", true, asfalt, pesMaxim);
+            Acces Acc2 = new CarreteraAsfalt("A2", true, asfalt, pesMaxim);
             llistaAccessos.afegirAcces(Acc2);
 
             float longitud = 100;
@@ -103,21 +115,21 @@ public class Camping implements InCamping {
             llistaAccessos.afegirAcces(Acc4);
 
             asfalt = 350;
-            Acces Acc5 = new CamiAsfaltat("A5", true, asfalt);
+            Acces Acc5 = new CamiAsfalt("A5", true, asfalt);
             llistaAccessos.afegirAcces(Acc5);
 
             asfalt = 800;
             pesMaxim = 12000;
-            Acces Acc6 = new CarreteraAsfaltada("A6", true, asfalt, pesMaxim);
+            Acces Acc6 = new CarreteraAsfalt("A6", true, asfalt, pesMaxim);
             llistaAccessos.afegirAcces(Acc6);
 
             asfalt = 100;
-            Acces Acc7 = new CamiAsfaltat("A7", true, asfalt);
+            Acces Acc7 = new CamiAsfalt("A7", true, asfalt);
             llistaAccessos.afegirAcces(Acc7);
 
             asfalt = 800;
             pesMaxim = 10000;
-            Acces Acc8 = new CarreteraAsfaltada("A8", true, asfalt, pesMaxim);
+            Acces Acc8 = new CarreteraAsfalt("A8", true, asfalt, pesMaxim);
             llistaAccessos.afegirAcces(Acc8);
 
             longitud = 50;
@@ -139,8 +151,10 @@ public class Camping implements InCamping {
             llistaAccessos.afegirAcces(Acc12);
 
 
+
+
             /* Pistes */
-            llistaAllotjaments.buidar();
+            allotjaments.buidar();
 
 
             // Afegir parcel·les:
@@ -152,13 +166,13 @@ public class Camping implements InCamping {
             boolean connexioElectrica = true;
 
             Parcela ALL1 = new Parcela(nom, idAllotjament, true, "100%", mida, connexioElectrica);
-            llistaAllotjaments.afegirAllotjament(ALL1);
+            allotjaments.afegirAllotjament(ALL1);
 
             nom = "Parcel·la Sud";
             idAllotjament = "ALL2";
 
             Parcela ALL2 = new Parcela(nom, idAllotjament, true, "100%", mida, connexioElectrica);
-            llistaAllotjaments.afegirAllotjament(ALL2);
+            allotjaments.afegirAllotjament(ALL2);
 
             // Afegir bungalows:
             //------------------------------
@@ -174,7 +188,7 @@ public class Camping implements InCamping {
             boolean aireFred = true;
 
             Bungalow ALL3 = new Bungalow(nom, idAllotjament, true, "100%", mida, habitacions, placesPersones, placesParquing, terrassa, tv, aireFred);
-            llistaAllotjaments.afegirAllotjament(ALL3);
+            allotjaments.afegirAllotjament(ALL3);
 
 
             // Afegir bungalows premium:
@@ -192,7 +206,7 @@ public class Camping implements InCamping {
             String codiWifi = "CampingDelMarBP1";
 
             BungalowPremium ALL4 = new BungalowPremium(nom, idAllotjament, true, "100%", mida, habitacions, placesPersones, placesParquing, terrassa, tv, aireFred, serveisExtra, codiWifi);
-            llistaAllotjaments.afegirAllotjament(ALL4);
+            allotjaments.afegirAllotjament(ALL4);
 
             // Afegir Glamping:
             //------------------------------
@@ -206,7 +220,7 @@ public class Camping implements InCamping {
             boolean casaMascota = true;
 
             Glamping ALL5 = new Glamping(nom, idAllotjament, true, "100%", mida, habitacions, placesPersones, material, casaMascota);
-            llistaAllotjaments.afegirAllotjament(ALL5);
+            allotjaments.afegirAllotjament(ALL5);
 
 
             // Afegir Mobil-Home:
@@ -220,7 +234,7 @@ public class Camping implements InCamping {
             boolean terrassaBarbacoa = true;
 
             MobilHome ALL6 = new MobilHome(nom, idAllotjament, true, "100%", mida, habitacions, placesPersones, terrassaBarbacoa);
-            llistaAllotjaments.afegirAllotjament(ALL6);
+            allotjaments.afegirAllotjament(ALL6);
 
             /* Accés */
             Acc1.afegirAllotjament(ALL1); Acc1.afegirAllotjament(ALL2);
@@ -236,14 +250,11 @@ public class Camping implements InCamping {
             Acc11.afegirAllotjament(ALL6);
             Acc12.afegirAllotjament(ALL6);
 
+        }  catch (ExcepcioCamping e) {
+            System.err.println("Error " + e.getMessage());
+        }
+
     }
 
-    private Allotjament getAllotjamentById(String id) {
-        for (Allotjament a : allotjaments) {
-            if (a.getId().equals(id)) {
-                return a;
-            }
-        }
-        return null;
-    }
+
 }

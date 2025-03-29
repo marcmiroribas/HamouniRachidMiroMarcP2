@@ -6,15 +6,15 @@ public class Allotjament implements InAllotjament {
     private long estadaMinimaAlta;
     private long estadaMinimaBaixa;
     private boolean operatiu;
-    private int illuminacio;
+    private String iluminacio;
 
-    public Allotjament(String nom, String id, long estadaMinimaAlta, long estadaMinimaBaixa) {
+    public Allotjament(String nom, String id, long estadaMinimaAlta, long estadaMinimaBaixa, boolean operatiu, String iluminacio) {
         this.nom = nom;
         this.id = id;
         this.estadaMinimaAlta = estadaMinimaAlta;
         this.estadaMinimaBaixa = estadaMinimaBaixa;
-        this.operatiu = true;
-        this.illuminacio = 100;
+        this.operatiu = operatiu;
+        this.iluminacio = iluminacio;
     }
 
     @Override
@@ -52,8 +52,8 @@ public class Allotjament implements InAllotjament {
         return operatiu;
     }
 
-    public int getIlluminacio() {
-        return illuminacio;
+    public String getIluminacio() {
+        return iluminacio;
     }
 
     @Override
@@ -61,13 +61,14 @@ public class Allotjament implements InAllotjament {
         this.operatiu = false;
         switch(in.getTipusIncidencia()) {
             case Reparacio:
-                this.illuminacio = 100;
+                this.iluminacio = "100";
                 break;
             case Neteja:
-                this.illuminacio = 50;
+                this.iluminacio = "50";
                 break;
-            case Tancament:
-                this.illuminacio = 0;
+            case Tancament
+                    :
+                this.iluminacio = "0";
                 break;
         }
     }
@@ -75,7 +76,7 @@ public class Allotjament implements InAllotjament {
     @Override
     public void obrirAllotjament() {
         this.operatiu = true;
-        this.illuminacio = 100;
+        this.iluminacio = "100";
     }
 
     @Override
@@ -85,6 +86,11 @@ public class Allotjament implements InAllotjament {
                 ", Estada Mínima ALTA=" + estadaMinimaAlta +
                 ", Estada Mínima BAIXA=" + estadaMinimaBaixa +
                 ", Operatiu=" + (operatiu ? "Sí" : "No") +
-                ", Il·luminació=" + illuminacio + "%";
+                ", Il·luminació=" + iluminacio + "%";
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode(); // Coherencia con equals()
     }
 }

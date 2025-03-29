@@ -79,4 +79,21 @@ public class LlistaAllotjaments implements InLlistaAllotjaments {
         }
         throw new ExcepcioCamping("No s'ha trobat cap allotjament amb el nom: " + nom);
     }
+    public boolean isEmpty(){
+        Iterator<Allotjament> itr =allotjaments.iterator();
+        while (itr.hasNext()){
+            Allotjament allotjament = itr.next();
+            if (allotjament.isOperatiu()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public Iterator<Allotjament> iterator() {
+        return allotjaments.iterator();
+    }
 }
+
+

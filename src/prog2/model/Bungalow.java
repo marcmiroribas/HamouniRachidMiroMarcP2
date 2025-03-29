@@ -1,7 +1,7 @@
 package prog2.model;
 
 public class Bungalow extends Allotjament {
-    private String mida;
+    private float mida;
     private int habitacions;
     private int placesPersones;
     private int placesParquing;
@@ -9,9 +9,9 @@ public class Bungalow extends Allotjament {
     private boolean tv;
     private boolean aireFred;
 
-    public Bungalow(String nom, String idAllotjament, String mida, int habitacions, int placesPersones,
+    public Bungalow(String nom, String idAllotjament, boolean operatiu, String iluminacio, float mida, int habitacions, int placesPersones,
                     int placesParquing, boolean terrassa, boolean tv, boolean aireFred) {
-        super(nom, idAllotjament, 7, 4); // Estada mínima alta: 7, estada mínima baja: 4
+        super(nom, idAllotjament, 7, 4, operatiu, iluminacio); // Estada mínima alta: 7, estada mínima baja: 4
         this.mida = mida;
         this.habitacions = habitacions;
         this.placesPersones = placesPersones;
@@ -22,7 +22,7 @@ public class Bungalow extends Allotjament {
     }
 
     @Override
-    public boolean correcteFuncionament() {
+    public boolean isOperatiu() {
         return true;
     }
 

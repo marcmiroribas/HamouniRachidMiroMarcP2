@@ -1,10 +1,11 @@
 package prog2.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import prog2.vista.ExcepcioCamping;
 
-public class LlistaAccessos {
+public class LlistaAccessos implements InLlistaAccessos{
     private List<Acces> accessos;
 
     public LlistaAccessos() {
@@ -12,12 +13,15 @@ public class LlistaAccessos {
     }
 
     public void afegirAcces(Acces acc) throws ExcepcioCamping {
+        if (acc == null) {
+            throw new ExcepcioCamping("L'accés no pot ser null");
+        }
+
         if (accessos.contains(acc)) {
-            throw new ExcepcioCamping("L'accés ja existeix a la llista.");
+            throw new ExcepcioCamping("L'accés ja existeix a la llista");
         }
         accessos.add(acc);
     }
-
     public void buidar() {
         accessos.clear();
     }
@@ -40,17 +44,21 @@ public class LlistaAccessos {
         return resultat.toString();
     }
 
+    @Override
     public void actualitzaEstatAccessos() throws ExcepcioCamping {
-        for (Acces acc : accessos) {
-            acc.tancarAcces();
-            for (Allotjament allotjament : acc.allotjaments) {
-                if (allotjament.isOperatiu()) {
-                    acc.obrirAcces();
-                    break;
-                }
+        Iterator <Acces> itr = accessos.iterator();
+        while (itr.hasNext()){
+            Acces a = itr.next();
+            if (a.isEmpty()){
+                a.tancarAcces();
+            }
+            if (!a.isEmpty()){
+                a.obrirAcces();
             }
         }
+        System.out.println("Estats actualitzats");
     }
+
 
     public int calculaAccessosAccessibles() throws ExcepcioCamping {
         int count = 0;

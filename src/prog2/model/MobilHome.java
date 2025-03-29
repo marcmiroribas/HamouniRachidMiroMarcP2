@@ -3,14 +3,14 @@ package prog2.model;
 public class MobilHome extends Allotjament {
     private boolean terrassaBarbacoa;
 
-    public MobilHome(String nom, String idAllotjament, String mida, int habitacions, int placesPersones,
+    public MobilHome(String nom, String idAllotjament,boolean operatiu, String iluminacio, float mida, int habitacions, int placesPersones,
                      boolean terrassaBarbacoa) {
-        super(nom, idAllotjament, 5, 3); // Estada mínima alta: 5, estada mínima baja: 3
+        super(nom, idAllotjament, 5, 3, operatiu, iluminacio); // Estada mínima alta: 5, estada mínima baja: 3
         this.terrassaBarbacoa = terrassaBarbacoa;
     }
 
     @Override
-    public boolean correcteFuncionament() {
+    public boolean isOperatiu() {
         return true;
     }
 

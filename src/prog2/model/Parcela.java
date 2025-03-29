@@ -4,8 +4,8 @@ public class Parcela extends Allotjament {
     private float mida;
     private boolean connexioElectrica;
 
-    public Parcela(String nom, String idAllotjament, float mida, boolean connexioElectrica) {
-        super(nom, idAllotjament, 4, 2); // Estada mínima alta: 4, estada mínima baja: 2
+    public Parcela(String nom, String idAllotjament, boolean operatiu, String iluminacio,float mida, boolean connexioElectrica) {
+        super(nom, idAllotjament, 4, 2, operatiu, iluminacio); // Estada mínima alta: 4, estada mínima baja: 2
         this.mida = mida;
         this.connexioElectrica = connexioElectrica;
     }
@@ -16,8 +16,9 @@ public class Parcela extends Allotjament {
     }
 
 
-    public boolean correcteFuncionament() {
-        return isOperatiu();
+    @Override
+    public boolean isOperatiu() {
+        return true;
     }
 
     @Override

@@ -1,10 +1,12 @@
 package prog2.model;
 
+import prog2.vista.ExcepcioCamping;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Acces implements InAcces {
-    protected List<Allotjament> allotjaments;
+    protected LlistaAllotjaments allotjaments;
     protected String nom;
     protected boolean accessibilitat;
     protected boolean estat;
@@ -13,12 +15,12 @@ public abstract class Acces implements InAcces {
         this.nom = nom;
         this.accessibilitat = accessibilitat;
         this.estat = estat;
-        this.allotjaments = new ArrayList<>();
+        this.allotjaments = new LlistaAllotjaments();
     }
 
     @Override
-    public void afegirAllotjament(Allotjament allotjament) {
-        allotjaments.add(allotjament);
+    public void afegirAllotjament(Allotjament allotjament)throws ExcepcioCamping {
+        allotjaments.afegirAllotjament(allotjament);
     }
 
     @Override
@@ -29,5 +31,8 @@ public abstract class Acces implements InAcces {
     @Override
     public void obrirAcces() {
         this.estat = true;
+    }
+    public boolean isEmpty(){
+        return allotjaments.isEmpty();
     }
 }
